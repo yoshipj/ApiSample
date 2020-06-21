@@ -108,6 +108,10 @@ namespace ApiSample.DAL
             return "Działa!";
         }
 
+        public bool DeleteGuestStr(string id)
+        {
+            throw new NotImplementedException();
+        }
 
         private class Gosc
         {
