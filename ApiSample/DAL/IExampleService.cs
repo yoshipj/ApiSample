@@ -15,5 +15,7 @@ namespace ApiSample.DAL
         bool AddGuest(GuestRequestDto newGuest);
         bool UpdateGuest(int id, GuestRequestDto updateGuest);
         bool DeleteGuest(int id);
+
+        bool DeleteGuestStr(string id);
     }
 }

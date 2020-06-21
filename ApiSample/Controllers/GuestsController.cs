@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using ApiSample.DAL;
 using ApiSample.DTOs.Guests;
@@ -43,7 +44,11 @@ namespace ApiSample.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetGuest(int id)
         {
-            return Ok(_service.GetGuestById(id));
+            var result = _service.GetGuestById(id);
+            if (result != null)
+                return Ok(result);
+            else
+                return NotFound($"Guest with provided id ({id}) not found");
         }
 
         //... api/guests [+body]
@@ -71,6 +76,16 @@ namespace ApiSample.Controllers
         public IActionResult DeleteGuest(int id)
         {
             if (_service.DeleteGuest(id))
+                return Ok($"Guest with id {id} has been deleted.");
+            else
+                return BadRequest("Guest not found!");
+        }
+
+
+        [HttpDelete("sqli")]
+        public IActionResult DeleteGuestStr(string id)
+        {
+            if (_service.DeleteGuestStr(id))
                 return Ok($"Guest with id {id} has been deleted.");
             else
                 return BadRequest("Guest not found!");
